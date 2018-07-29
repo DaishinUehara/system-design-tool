@@ -1,0 +1,8 @@
+#set( $ab = "cd" )
+
+#foreach ($entityInfo in $entityInfoList)
+create table $!{entityInfo.Tablename}
+();
+#end
+
+aa $ab

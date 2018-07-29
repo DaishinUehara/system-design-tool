@@ -1,0 +1,57 @@
+INSERT INTO m_attr (
+ attr_no
+,attr_cd    
+,attr_name  
+) VALUES
+ (
+ nextval('m_attr_sq1')
+,'D8'
+,'年月日(YYYYMMDD)'
+ )
+,(
+ nextval('m_attr_sq1')
+,'D6'
+,'年月(YYYYMM)'
+ )
+,(
+ nextval('m_attr_sq1')
+,'D4'
+,'年(YYYY)'
+ )
+,(
+ nextval('m_attr_sq1')
+,'D14'
+,'年月日時分秒(YYYYMMDDhhmmss)'
+ )
+,(
+ nextval('m_attr_sq1')
+,'D17'
+,'年月日時分秒ミリ秒(YYYYMMDDhhmmssSSS)'
+ )
+,(
+ nextval('m_attr_sq1')
+,'ND'
+,'数字型'
+ )
+,(
+ nextval('m_attr_sq1')
+,'S1'
+,'文字列(通常)'
+ )
+,(
+ nextval('m_attr_sq1')
+,'S2'
+,'文字列(改行含む)'
+ )
+,(
+ nextval('m_attr_sq1')
+,'S3'
+,'文字列(郵便)'
+ )
+,(
+ nextval('m_attr_sq1')
+,'S4'
+,'文字列(電話)'
+ )
+;
+

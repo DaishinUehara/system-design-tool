@@ -1,0 +1,10 @@
+/conf/
+/drivers/
+/jars/
+/jre/
+/lib/
+/flyway
+/flyway.cmd
+/LISENSE.txt
+/LICENSES-THIRD-PARTY.txt
+/README.txt

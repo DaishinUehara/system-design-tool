@@ -1,0 +1,14 @@
+*           text=auto
+*.txt       text
+*.sql       text
+*.conf      text
+*.a5er      text eof=crlf
+*.vcproj    text eol=crlf
+*.bat       text eol=crlf
+*.cmd       text eol=crlf
+*.sh        text eol=lf
+*.jpg       binary
+*.xls       binary
+*.xlsx      binary
+*.jar       binary
+*.war       binary

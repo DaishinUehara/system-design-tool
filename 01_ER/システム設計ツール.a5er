@@ -1,0 +1,322 @@
+﻿# A5:ER FORMAT:11
+# A5:ER ENCODING:UTF8
+# A5:ER Mk-1 Copyright (C)2007 m.matsubara
+# A5:SQL Mk-2 Copyright (C)1997 m.matsubara
+#  http://www.wind.sannet.ne.jp/m_matsu/developer/a5m2/
+
+[Manager]
+ProjectName=
+Author=
+MaxEntityRowShow=1000
+ReadOnlyRecommend=0
+Page=Main
+PageInfo="Main",2,"A3Landscape",$FFFFFF
+LogicalView=1
+DecodeDomain=0
+ViewModePageIndividually=1
+ViewMode=2
+ViewFormat=0
+UseNondependenceDashLine=0
+FontName=Tahoma
+FontSize=6
+PaperSize=A4Landscape
+HeaderLeft=
+HeaderCenter=
+HeaderRight=
+FooterLeft=
+FooterCenter=
+FooterRight=
+ShowPageoutRelation=1
+DefaultPkName=%0:s_PKC
+DefaultPkIndexName=%0:s_PKI
+DefaultIndexName=%0:s_IX%1:d
+DefaultFkName=%0:s_FK%1:d
+SqlSeparator=0
+ShowTag=1
+ShowCommonAttributes=0
+
+[Entity]
+PName=m_attr
+LName=属性マスタ
+Comment=
+TableOption=
+Page=Main
+Left=50
+Top=50
+Field="属性番号","attr_no","integer","NOT NULL",0,"nextval(\qm_attr_sq1\q::regclass)","",$FFFFFFFF,""
+Field="属性コード","attr_cd","character varying(16)","NOT NULL",,"","",$FFFFFFFF,""
+Field="項目名","attr_name","character varying(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","create_datetime","timestamp(6) without time zone","NOT NULL",,"now()","",$FFFFFFFF,""
+Field="登録ユーザ番号","create_user_no","integer","NOT NULL",,"0","",$FFFFFFFF,""
+Field="更新日時","update_datetime","timestamp(6) without time zone","NOT NULL",,"now()","",$FFFFFFFF,""
+Field="更新ユーザ番号","update_user_no","integer","NOT NULL",,"0","",$FFFFFFFF,""
+Field="削除フラグ","del_flg","boolean","NOT NULL",,"false","",$FFFFFFFF,""
+Index=m_attr_uk1=2,attr_cd
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="Main",50,50
+
+[Entity]
+PName=m_component
+LName=コンポーネントマスタ
+Comment=
+TableOption=
+Page=Main
+Left=350
+Top=50
+Field="コンポーネント番号","component_no","integer","NOT NULL",0,"nextval(\qm_component_sq1\q::regclass)","",$FFFFFFFF,""
+Field="コンポーネントコード","component_cd","character varying(16)","NOT NULL",,"","",$FFFFFFFF,""
+Field="コンポーネント名","component_name","character varying(256)","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","create_datetime","timestamp(6) without time zone","NOT NULL",,"now()","",$FFFFFFFF,""
+Field="登録ユーザ番号","create_user_no","integer","NOT NULL",,"0","",$FFFFFFFF,""
+Field="更新日時","update_datetime","timestamp(6) without time zone","NOT NULL",,"now()","",$FFFFFFFF,""
+Field="更新ユーザ番号","update_user_no","integer","NOT NULL",,"0","",$FFFFFFFF,""
+Field="削除フラグ","del_flg","boolean","NOT NULL",,"false","",$FFFFFFFF,""
+Index=m_component_uk1=2,component_cd
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="Main",350,50
+
+[Entity]
+PName=m_entity
+LName=エンティティマスタ
+Comment=
+TableOption=
+Page=Main
+Left=650
+Top=50
+Field="エンティティ番号","entity_no","integer","NOT NULL",0,"nextval(\qm_entity_sq1\q::regclass)","",$FFFFFFFF,""
+Field="エンティティコード","entity_cd","character varying(16)","NOT NULL",,"","",$FFFFFFFF,""
+Field="エンティティ名","entity_name","character varying(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","create_datetime","timestamp(6) without time zone","NOT NULL",,"now()","",$FFFFFFFF,""
+Field="登録ユーザ番号","create_user_no","integer","NOT NULL",,"0","",$FFFFFFFF,""
+Field="更新日時","update_datetime","timestamp(6) without time zone","NOT NULL",,"now()","",$FFFFFFFF,""
+Field="更新ユーザ番号","update_user_no","integer","NOT NULL",,"0","",$FFFFFFFF,""
+Field="削除フラグ","del_flg","boolean","NOT NULL",,"false","",$FFFFFFFF,""
+Index=m_entity_uk1=2,entity_cd
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="Main",650,50
+
+[Entity]
+PName=m_form
+LName=フォームマスタ
+Comment=
+TableOption=
+Page=Main
+Left=950
+Top=50
+Field="フォーム番号","form_no","integer","NOT NULL",0,"nextval(\qm_form_sq1\q::regclass)","",$FFFFFFFF,""
+Field="フォームコード","form_cd","character varying(16)","NOT NULL",,"","",$FFFFFFFF,""
+Field="フォーム名","form_name","character varying(256)","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","create_datetime","timestamp(6) without time zone","NOT NULL",,"now()","",$FFFFFFFF,""
+Field="登録ユーザ番号","create_user_no","integer","NOT NULL",,"0","",$FFFFFFFF,""
+Field="更新日時","update_datetime","timestamp(6) without time zone","NOT NULL",,"now()","",$FFFFFFFF,""
+Field="更新ユーザ番号","update_user_no","integer","NOT NULL",,"0","",$FFFFFFFF,""
+Field="削除フラグ","del_flg","boolean","NOT NULL",,"false","",$FFFFFFFF,""
+Index=m_form_uk1=2,form_cd
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="Main",950,50
+
+[Entity]
+PName=m_framework
+LName=フレームワークマスタ
+Comment=
+TableOption=
+Page=Main
+Left=1250
+Top=50
+Field="フレームワーク番号","framework_no","integer","NOT NULL",0,"nextval(\qm_framework_sq1\q::regclass)","",$FFFFFFFF,""
+Field="フレームワークコード","framework_cd","character varying(16)","NOT NULL",,"","",$FFFFFFFF,""
+Field="フレームワーク名","framework_name","character varying(256)","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","create_datetime","timestamp(6) without time zone","NOT NULL",,"now()","",$FFFFFFFF,""
+Field="登録ユーザ番号","create_user_no","integer","NOT NULL",,"0","",$FFFFFFFF,""
+Field="更新日時","update_datetime","timestamp(6) without time zone","NOT NULL",,"now()","",$FFFFFFFF,""
+Field="更新ユーザ番号","update_user_no","integer","NOT NULL",,"0","",$FFFFFFFF,""
+Field="削除フラグ","del_flg","boolean","NOT NULL",,"false","",$FFFFFFFF,""
+Index=m_framework_uk1=2,framework_cd
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="Main",1250,50
+
+[Entity]
+PName=m_item
+LName=項目マスタ
+Comment=
+TableOption=
+Page=Main
+Left=1550
+Top=50
+Field="項目番号","item_no","integer","NOT NULL",0,"nextval(\qm_item_sq1\q::regclass)","",$FFFFFFFF,""
+Field="項目コード","item_cd","character varying(16)","NOT NULL",,"","",$FFFFFFFF,""
+Field="項目名","item_name","character varying(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","create_datetime","timestamp(6) without time zone","NOT NULL",,"now()","",$FFFFFFFF,""
+Field="登録ユーザ番号","create_user_no","integer","NOT NULL",,"0","",$FFFFFFFF,""
+Field="更新日時","update_datetime","timestamp(6) without time zone","NOT NULL",,"now()","",$FFFFFFFF,""
+Field="更新ユーザ番号","update_user_no","integer","NOT NULL",,"0","",$FFFFFFFF,""
+Field="削除フラグ","del_flg","boolean","NOT NULL",,"false","",$FFFFFFFF,""
+Index=m_item_uk1=2,item_cd
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="Main",1550,50
+
+[Entity]
+PName=m_itemtype
+LName=項目種別マスタ
+Comment=
+TableOption=
+Page=Main
+Left=1850
+Top=50
+Field="項目種別番号","itemtype_no","integer","NOT NULL",0,"nextval(\qm_itemtype_sq1\q::regclass)","",$FFFFFFFF,""
+Field="項目種別コード","itemtype_cd","character varying(16)","NOT NULL",,"","",$FFFFFFFF,""
+Field="項目種別名","itemtype_name","character varying(256)","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","create_datetime","timestamp(6) without time zone","NOT NULL",,"now()","",$FFFFFFFF,""
+Field="登録ユーザ番号","create_user_no","integer","NOT NULL",,"0","",$FFFFFFFF,""
+Field="更新日時","update_datetime","timestamp(6) without time zone","NOT NULL",,"now()","",$FFFFFFFF,""
+Field="更新ユーザ番号","update_user_no","integer","NOT NULL",,"0","",$FFFFFFFF,""
+Field="削除フラグ","del_flg","boolean","NOT NULL",,"false","",$FFFFFFFF,""
+Index=m_itemtype_uk1=2,itemtype_cd
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="Main",1850,50
+
+[Entity]
+PName=m_message
+LName=メッセージマスタ
+Comment=
+TableOption=
+Page=Main
+Left=2150
+Top=50
+Field="メッセージ番号","message_no","integer","NOT NULL",0,"nextval(\qm_message_sq1\q::regclass)","",$FFFFFFFF,""
+Field="メッセージコード","message_cd","character varying(16)","NOT NULL",,"","",$FFFFFFFF,""
+Field="メッセージテキスト","message_text","character varying(256)","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","create_datetime","timestamp(6) without time zone","NOT NULL",,"now()","",$FFFFFFFF,""
+Field="登録ユーザ番号","create_user_no","integer","NOT NULL",,"0","",$FFFFFFFF,""
+Field="更新日時","update_datetime","timestamp(6) without time zone","NOT NULL",,"now()","",$FFFFFFFF,""
+Field="更新ユーザ番号","update_user_no","integer","NOT NULL",,"0","",$FFFFFFFF,""
+Field="削除フラグ","del_flg","boolean","NOT NULL",,"false","",$FFFFFFFF,""
+Index=m_message_uk1=2,message_cd
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="Main",2150,50
+
+[Entity]
+PName=m_panel
+LName=パネルマスタ
+Comment=
+TableOption=
+Page=Main
+Left=2450
+Top=50
+Field="パネル番号","panel_no","integer","NOT NULL",0,"nextval(\qm_panel_sq1\q::regclass)","",$FFFFFFFF,""
+Field="パネルコード","panel_cd","character varying(16)","NOT NULL",,"","",$FFFFFFFF,""
+Field="パネル名","panel_name","character varying(256)","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","create_datetime","timestamp(6) without time zone","NOT NULL",,"now()","",$FFFFFFFF,""
+Field="登録ユーザ番号","create_user_no","integer","NOT NULL",,"0","",$FFFFFFFF,""
+Field="更新日時","update_datetime","timestamp(6) without time zone","NOT NULL",,"now()","",$FFFFFFFF,""
+Field="更新ユーザ番号","update_user_no","integer","NOT NULL",,"0","",$FFFFFFFF,""
+Field="削除フラグ","del_flg","boolean","NOT NULL",,"false","",$FFFFFFFF,""
+Index=m_panel_uk1=2,panel_cd
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="Main",2450,50
+
+[Entity]
+PName=m_screen
+LName=画面マスタ
+Comment=
+TableOption=
+Page=Main
+Left=2750
+Top=50
+Field="画面番号","screen_no","integer","NOT NULL",0,"nextval(\qm_screen_sq1\q::regclass)","",$FFFFFFFF,""
+Field="画面コード","screen_cd","character varying(16)","NOT NULL",,"","",$FFFFFFFF,""
+Field="画面名","screen_name","character varying(256)","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","create_datetime","timestamp(6) without time zone","NOT NULL",,"now()","",$FFFFFFFF,""
+Field="登録ユーザ番号","create_user_no","integer","NOT NULL",,"0","",$FFFFFFFF,""
+Field="更新日時","update_datetime","timestamp(6) without time zone","NOT NULL",,"now()","",$FFFFFFFF,""
+Field="更新ユーザ番号","update_user_no","integer","NOT NULL",,"0","",$FFFFFFFF,""
+Field="削除フラグ","del_flg","boolean","NOT NULL",,"false","",$FFFFFFFF,""
+Index=m_screen_uk1=2,screen_cd
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="Main",2750,50
+
+[Entity]
+PName=m_service
+LName=サービスマスタ
+Comment=
+TableOption=
+Page=Main
+Left=3050
+Top=50
+Field="サービス番号","service_no","integer","NOT NULL",0,"nextval(\qm_service_sq1\q::regclass)","",$FFFFFFFF,""
+Field="サービスコード","service_cd","character varying(16)","NOT NULL",,"","",$FFFFFFFF,""
+Field="サービス名","service_name","character varying(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","create_datetime","timestamp(6) without time zone","NOT NULL",,"now()","",$FFFFFFFF,""
+Field="登録ユーザ番号","create_user_no","integer","NOT NULL",,"0","",$FFFFFFFF,""
+Field="更新日時","update_datetime","timestamp(6) without time zone","NOT NULL",,"now()","",$FFFFFFFF,""
+Field="更新ユーザ番号","update_user_no","integer","NOT NULL",,"0","",$FFFFFFFF,""
+Field="削除フラグ","del_flg","boolean","NOT NULL",,"false","",$FFFFFFFF,""
+Index=m_service_uk1=2,service_cd
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="Main",3050,50
+
+[Entity]
+PName=m_system
+LName=システムマスタ
+Comment=
+TableOption=
+Page=Main
+Left=3350
+Top=50
+Field="システム番号","system_no","integer","NOT NULL",0,"nextval(\qm_system_sq1\q::regclass)","",$FFFFFFFF,""
+Field="システムコード","system_cd","character varying(16)","NOT NULL",,"","",$FFFFFFFF,""
+Field="システム名","system_name","character varying(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","create_datetime","timestamp(6) without time zone","NOT NULL",,"now()","",$FFFFFFFF,""
+Field="登録ユーザ番号","create_user_no","integer","NOT NULL",,"0","",$FFFFFFFF,""
+Field="更新日時","update_datetime","timestamp(6) without time zone","NOT NULL",,"now()","",$FFFFFFFF,""
+Field="更新ユーザ番号","update_user_no","integer","NOT NULL",,"0","",$FFFFFFFF,""
+Field="削除フラグ","del_flg","boolean","NOT NULL",,"false","",$FFFFFFFF,""
+Index=m_system_uk1=2,system_cd
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="Main",3350,50
+
+[Entity]
+PName=m_user
+LName=ユーザマスタ
+Comment=
+TableOption=
+Page=Main
+Left=3650
+Top=50
+Field="ユーザ番号","user_no","integer","NOT NULL",0,"nextval(\qm_user_sq1\q::regclass)","",$FFFFFFFF,""
+Field="ユーザコード","user_cd","character varying(16)","NOT NULL",,"","",$FFFFFFFF,""
+Field="ユーザ名","user_name","character varying(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="登録日時","create_datetime","timestamp(6) without time zone","NOT NULL",,"now()","",$FFFFFFFF,""
+Field="登録ユーザ番号","create_user_no","integer","NOT NULL",,"0","",$FFFFFFFF,""
+Field="更新日時","update_datetime","timestamp(6) without time zone","NOT NULL",,"now()","",$FFFFFFFF,""
+Field="更新ユーザ番号","update_user_no","integer","NOT NULL",,"0","",$FFFFFFFF,""
+Field="削除フラグ","del_flg","boolean","NOT NULL",,"false","",$FFFFFFFF,""
+Index=m_user_uk1=2,user_cd
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+Position="Main",3650,50
