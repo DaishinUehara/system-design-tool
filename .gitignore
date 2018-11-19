@@ -1,10 +1,5 @@
-.metadata/
-.recommenders/
-RemoteSystemsTempFiles/
-.idea/
-.settings/
-.vscode/
-.classpath
-.project
-*.code-workspace
-*.iml
+.vscode/*
+.metadata/*
+.settings/*
+RemoteSystemsTempFiles/*
+target/*

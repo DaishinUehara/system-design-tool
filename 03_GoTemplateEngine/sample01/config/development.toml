@@ -1,6 +1,0 @@
-[dbconfig]
-database = "postgres"
-user = "d-uehara"
-dbname = "systemdesigndb"
-password = "JfKdLs1003"
-sslmode = false

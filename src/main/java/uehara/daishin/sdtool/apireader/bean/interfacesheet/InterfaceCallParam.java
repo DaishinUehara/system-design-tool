@@ -1,0 +1,14 @@
+package uehara.daishin.sdtool.apireader.bean.interfacesheet;
+
+import lombok.Data;
+
+@Data
+public class InterfaceCallParam
+{
+    private String logical_name;
+    private String phisical_name;
+    private String type;
+    private int length;
+    private boolean is_array;
+
+}
