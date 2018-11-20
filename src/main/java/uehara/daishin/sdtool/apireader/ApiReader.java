@@ -10,7 +10,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import uehara.daishin.sdtool.apireader.bean.interfacesheet.InterfaceSheet;
-import uehara.daishin.sdtool.apireader.bean.interfacesheet.InterfaceSheetReader;
 
 
 public class ApiReader

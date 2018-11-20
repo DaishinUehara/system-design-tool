@@ -15,7 +15,7 @@ public class ApiMaker
 {
     public static void main( String[] args )
     {
-        String filepath="C:\\work\\18_devtool\\system-design-tool\\exceldoc\\ApiDoc01.xlsx";
+    	String filepath="exceldoc/ApiDoc01.xlsx";
         File file = new File(filepath);
         try{
             ApiReader.ReadExcel(file);
