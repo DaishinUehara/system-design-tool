@@ -28,7 +28,6 @@ public class TableReader {
 
 	public static void pushHeaderKey(TableData td, String header_string){
 		td.getHeader_string().add(header_string);
-//		td.getHeader_pos().put(header_key, -1);
 	}
 
 	public static void readHeader(Sheet sheet, TableData td){

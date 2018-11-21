@@ -40,7 +40,7 @@ public class ApiReader
             try{
             	for (int i = 0; i<workbook.getNumberOfSheets();i++){
             		Sheet sheet = workbook.getSheetAt(i);
-            		System.out.println("シート名:"+sheet.getSheetName());
+            		//System.out.println("シート名:"+sheet.getSheetName());
             		for(int l = 0; l <= sheet.getLastRowNum();l++){
             			String acell;
             			String process_type;

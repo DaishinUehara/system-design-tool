@@ -1,22 +1,19 @@
 package uehara.daishin.sdtool.apireader;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
-import uehara.daishin.sdtool.apireader.bean.interfacesheet.InterfaceCallParam;
-import uehara.daishin.sdtool.apireader.bean.interfacesheet.InterfaceReturnParam;
 import uehara.daishin.sdtool.apireader.bean.interfacesheet.InterfaceSheet;
+import uehara.daishin.sdtool.apireader.table.TableData;
+import uehara.daishin.sdtool.apireader.table.TableReader;
 
 public class InterfaceSheetReader {
 	public InterfaceSheetReader(){
 	}
 
 	public static InterfaceSheet readInterfaceSheet(Sheet sheet){
-		System.out.println("シート名:"+sheet.getSheetName());
+//		System.out.println("シート名:"+sheet.getSheetName());
 		InterfaceSheet isheet = new InterfaceSheet();
 		for(int l = 0; l <= sheet.getLastRowNum();l++){
 			String acell;
@@ -33,15 +30,38 @@ public class InterfaceSheetReader {
         			switch(acell){
         				case "IF":
         					// ヘッダ読み込み
-        					l=ifHeaderRead(++l,sheet,isheet);
+//        					l=ifHeaderRead(++l,sheet,isheet);
+        					TableData ifTableData=TableReader.getTableData(++l,0,false,100);
+        					TableReader.pushHeaderKey(ifTableData, "名前");
+        					TableReader.pushHeaderKey(ifTableData, "リクエスト種別");
+        					TableReader.pushHeaderKey(ifTableData, "操作種別");
+        					TableReader.pushHeaderKey(ifTableData, "URI");
+        					TableReader.readHeader(sheet, ifTableData);
+        					System.out.println(ifTableData);
         					break;
         				case "呼出パラメータ":
         					// 呼出パラメータ読み込み
-        					l=ifCallParamRead(++l,sheet,isheet);
+//        					l=ifCallParamRead(++l,sheet,isheet);
+        					TableData callParamTableData=TableReader.getTableData(++l,0,false,100);
+        					TableReader.pushHeaderKey(callParamTableData, "パラメータ名");
+        					TableReader.pushHeaderKey(callParamTableData, "物理名");
+        					TableReader.pushHeaderKey(callParamTableData, "型");
+        					TableReader.pushHeaderKey(callParamTableData, "桁");
+           					TableReader.pushHeaderKey(callParamTableData, "配列");
+        					TableReader.readHeader(sheet, callParamTableData);
+        					System.out.println(callParamTableData);
         					break;
         				case "戻値パラメータ":
         					// 戻値パラメータ読み込み
-        					l=ifReturnParamRead(++l,sheet,isheet);
+//        					l=ifReturnParamRead(++l,sheet,isheet);
+        					TableData returnParamTableData=TableReader.getTableData(++l,0,false,100);
+        					TableReader.pushHeaderKey(returnParamTableData, "パラメータ名");
+        					TableReader.pushHeaderKey(returnParamTableData, "物理名");
+        					TableReader.pushHeaderKey(returnParamTableData, "型");
+        					TableReader.pushHeaderKey(returnParamTableData, "桁");
+           					TableReader.pushHeaderKey(returnParamTableData, "配列");
+        					TableReader.readHeader(sheet, returnParamTableData);
+        					System.out.println(returnParamTableData);
         					break;
        					default:
     						// TODO エラー処理
@@ -51,13 +71,13 @@ public class InterfaceSheetReader {
     			}
 
 			}
-			System.out.println(acell);
+			//System.out.println(acell);
 
 		}
 		return isheet;
 
 	}
-
+/*
 	private static int ifReturnParamRead(int rowno, Sheet sheet, InterfaceSheet isheet){
 		// ↓ヘッダ読み込み
 		Row row;
@@ -342,4 +362,5 @@ public class InterfaceSheetReader {
 		return rowno;
 
 	}
+*/
 }
