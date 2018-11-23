@@ -42,7 +42,7 @@ public class TableReader {
 					if ( null == row ) break; // 縦に読み込む場合、ヘッダが途切れたらbreak;
 					Cell cell = row.getCell(td.getStart_col());
 					if ( null == cell ) break; //  縦に読み込む場合、ヘッダが途切れたらbreak;
-					String cell_string = cell.getStringCellValue();
+					String cell_string = getCellString(cell);
 					// キーの追加
 					if (hstring.equals(cell_string)){
 						td.getHeader_pos().put( hstring,cell.getRowIndex());
@@ -59,15 +59,15 @@ public class TableReader {
 				is_blank=true;
 
 				Iterator<String> his2 = td.getHeader_string().iterator();
-				while(his.hasNext()){
-					String hstring=his.next();
+				while(his2.hasNext()){
+					String hstring=his2.next();
 					int rowpos = td.getHeader_pos().get(hstring);
 					Row row = sheet.getRow(rowpos);
-					Cell cell = row.getCell(colpos);
+					Cell cell = row.getCell(colpos);// headerがあるから必ずrowはnot null
 					if ( null == cell ){
 						data.put(hstring, "");
 					} else {
-						data.put(hstring, cell.getStringCellValue());
+						data.put(hstring, getCellString(cell));
 						is_blank=false;
 					}
 				}
@@ -78,18 +78,20 @@ public class TableReader {
 			// 縦読み完了
 
 		} else {
+			System.out.println("読み込み開始");
 			// 通常同様、行をヘッダとして読む場合
 			int maxcol=0; // サーチ範囲を覚えるためループの外で定義
-			Iterator<String> his = td.getHeader_string().iterator();
-			while(his.hasNext()){
-				String hstring=his.next();
+			Iterator<String> his1 = td.getHeader_string().iterator();
+			while(his1.hasNext()){
+				String hstring=his1.next();
 
 				Row row = sheet.getRow(td.getStart_row());
 				Iterator<Cell> cellit=row.cellIterator(); // 横に読み込む場合はiteratorで読み込む(breakしない)
 				while(cellit.hasNext()){
 					Cell cell=cellit.next();
 					if(null == cell) break;
-					String header_string = cell.getStringCellValue();
+//					String header_string = cell.getStringCellValue();
+					String header_string = getCellString(cell);
 					if(hstring.equals(header_string)){
 						td.getHeader_pos().put(hstring,cell.getColumnIndex());
 						if (maxcol < cell.getColumnIndex()) maxcol=cell.getColumnIndex();
@@ -107,16 +109,21 @@ public class TableReader {
 				is_blank=true;
 
 				Iterator<String> his2 = td.getHeader_string().iterator();
-				while(his.hasNext()){
-					String hstring=his.next();
+				while(his2.hasNext()){
+					System.out.println("his2.hasNext()="+his2.hasNext());
+					String hstring=his2.next();
+					System.out.println("hstring="+hstring);
 					int colpos = td.getHeader_pos().get(hstring);
-					Row row = sheet.getRow(rowpos);
-					Cell cell = row.getCell(colpos);
-					if ( null == cell ){
-						data.put(hstring, "");
+					System.out.println("colpos="+colpos);
+					Row row2 = sheet.getRow(rowpos);
+					if (null == row2) {
+						break; // データがない場合 breakしてループを抜ける
 					} else {
-						data.put(hstring, cell.getStringCellValue());
-						is_blank=false;
+						Cell cell = row2.getCell(colpos);
+						if (null != cell ){
+							is_blank=false;
+						}
+						data.put(hstring, getCellString(cell));
 					}
 				}
 				if (is_blank == false ){
@@ -129,4 +136,38 @@ public class TableReader {
 		}
 	}
 
+	private static String getCellString(Cell cell){
+		String ret="";
+		if ( null == cell ){
+			ret= "";
+		} else {
+			switch(cell.getCellType()){
+			case NUMERIC:
+				ret= String.valueOf(cell.getNumericCellValue());
+				break;
+			case STRING:
+				ret= cell.getStringCellValue();
+				break;
+			case BLANK:
+				ret= "";
+				break;
+			case BOOLEAN:
+				ret=String.valueOf(cell.getBooleanCellValue());
+				break;
+			case FORMULA:
+				ret=String.valueOf(cell.getCellFormula());
+				break;
+			case ERROR:
+				ret="##ERROR="+String.valueOf(cell.getErrorCellValue())+"##";
+				break;
+			default:
+				ret= "";
+				break;
+			}
+
+		}
+		return ret;
+	}
+
 }
+

@@ -36,6 +36,7 @@ public class InterfaceSheetReader {
         					TableReader.pushHeaderKey(ifTableData, "リクエスト種別");
         					TableReader.pushHeaderKey(ifTableData, "操作種別");
         					TableReader.pushHeaderKey(ifTableData, "URI");
+        					System.out.println(ifTableData);
         					TableReader.readHeader(sheet, ifTableData);
         					System.out.println(ifTableData);
         					break;
@@ -48,6 +49,7 @@ public class InterfaceSheetReader {
         					TableReader.pushHeaderKey(callParamTableData, "型");
         					TableReader.pushHeaderKey(callParamTableData, "桁");
            					TableReader.pushHeaderKey(callParamTableData, "配列");
+        					System.out.println(callParamTableData);
         					TableReader.readHeader(sheet, callParamTableData);
         					System.out.println(callParamTableData);
         					break;
@@ -60,11 +62,11 @@ public class InterfaceSheetReader {
         					TableReader.pushHeaderKey(returnParamTableData, "型");
         					TableReader.pushHeaderKey(returnParamTableData, "桁");
            					TableReader.pushHeaderKey(returnParamTableData, "配列");
+        					System.out.println(returnParamTableData);
         					TableReader.readHeader(sheet, returnParamTableData);
         					System.out.println(returnParamTableData);
         					break;
        					default:
-    						// TODO エラー処理
        						break;
         			}
 
