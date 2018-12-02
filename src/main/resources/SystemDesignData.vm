@@ -1,0 +1,66 @@
+こんにちは$!{name}!!
+
+設計書: $designDataBooks.name
+#foreach ($book in $designDataBooks.designDataBookList)
+    ブック名 : $book.name
+#**##foreach ($sheet in $book.designDataSheetList)
+        シート名 : $sheet.name
+#*    *##foreach ($designData in $sheet.designDataList)
+
+            デザインデータ名 : $designData.name
+#*        *### マップで取得する場合
+#*        *##foreach ($record in $designData.table)
+## Header出力
+#*            *##if($foreach.count==1)
+#*                *##foreach ($col in $record.entrySet())
+#*                    *##if($foreach.count==1)
+
+                    ${col.key}#if($foreach.hasNext)	#end
+#*                    *##else
+#*                *#${col.key}#if($foreach.hasNext)	#end
+#*                    *##end
+#*                *##end
+#*                *##foreach ($col in $record.entrySet())
+#*                    *##if($foreach.count==1)
+
+                    ${col.value}#if($foreach.hasNext)	#end
+#*                    *##else
+#*                *#${col.value}#if($foreach.hasNext)	#end
+#*                    *##end
+#*                *##end
+#*            *##else
+#*                *##foreach ($col in $record.entrySet())
+#*                    *##if($foreach.count==1)
+
+                    ${col.value}#if($foreach.hasNext)	#end
+#*                    *##else
+#*                *#${col.value}#if($foreach.hasNext)	#end
+#*                    *##end
+#*                *##end
+#*            *##end
+#*        *##end
+
+## AllayListとKVで取得する場合(Header出力)
+#*        *##foreach ($header in $designData.headerString)
+#*            *##if($foreach.count==1)
+
+                    ${header}#if($foreach.hasNext)	#end
+#*            *##else
+#*                *#${header}#if($foreach.hasNext)	#end
+#*            *##end
+#*        *##end
+## AllayListとKVで取得する場合(Keyからの値取得出力)
+#*        *##foreach ($record in $designData.table)
+#*            *##foreach ($header in $designData.headerString)
+#*                *##if($foreach.count==1)
+
+                    $record.get($header)#if($foreach.hasNext)	#end
+#*                *##else
+#*                *#$record.get($header)#if($foreach.hasNext)	#end
+#*                *##end
+#*            *##end
+#*        *##end
+#*    *##end
+#**##end
+#end
+

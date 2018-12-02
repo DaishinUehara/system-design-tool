@@ -12,7 +12,6 @@ public class DesignData {
 
 	private List<String> headerString;
 	private Map<String,Integer> headerPosition;
-	//private Map<String,String> data;
 	private List<Map<String,String>> table;
 
 	private boolean headerVirtical;

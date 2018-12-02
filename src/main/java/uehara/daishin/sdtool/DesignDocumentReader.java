@@ -2,6 +2,7 @@ package uehara.daishin.sdtool;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,6 +11,13 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.runtime.RuntimeConstants;
+import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
+
+import lombok.val;
 import uehara.daishin.sdtool.apireader.ApiBookReader;
 import uehara.daishin.sdtool.design.DesignDataBook;
 import uehara.daishin.sdtool.design.DesignDataBooks;
@@ -80,7 +88,36 @@ public class DesignDocumentReader
 		}
 
 		System.out.println(designDataBooks);
+
+		designOutput(designDataBooks);
+
 		System.out.println("[INFO]処理終了");
 		System.exit(0);
 	}
+
+
+	public static void designOutput(DesignDataBooks ddb){
+
+		VelocityEngine velocityEngine = new VelocityEngine();
+		velocityEngine.setProperty(RuntimeConstants.RESOURCE_LOADER, "CLASSPATH");
+		velocityEngine.setProperty("CLASSPATH.resource.loader.class", ClasspathResourceLoader.class.getName());
+		velocityEngine.init();
+
+		val vcontext = new VelocityContext();
+		vcontext.put("name", "Velocity");
+		vcontext.put("designDataBooks",ddb);
+
+		// String Writerの生成
+		val stringWriter=new StringWriter();
+
+		// テンプレートの作成
+		Template template=null;
+		template = velocityEngine.getTemplate("SystemDesignData.vm");
+
+		// テンプレートとデータのマージ
+		template.merge(vcontext, stringWriter);
+		stringWriter.flush();
+		System.out.println(stringWriter.toString());
+	}
+
 }
