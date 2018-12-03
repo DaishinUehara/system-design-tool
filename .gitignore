@@ -3,3 +3,5 @@
 .settings/*
 RemoteSystemsTempFiles/*
 target/*
+.project
+.classpath
