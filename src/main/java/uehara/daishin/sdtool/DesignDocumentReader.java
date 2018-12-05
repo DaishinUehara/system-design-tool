@@ -10,6 +10,9 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Persistence;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -19,6 +22,7 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 
 import lombok.val;
 import uehara.daishin.sdtool.apireader.ApiBookReader;
+import uehara.daishin.sdtool.db.ItemDesign;
 import uehara.daishin.sdtool.design.DesignDataBook;
 import uehara.daishin.sdtool.design.DesignDataBooks;
 
@@ -89,12 +93,46 @@ public class DesignDocumentReader
 
 		System.out.println(designDataBooks);
 
+		dbInsert(designDataBooks);
+
 		designOutput(designDataBooks);
 
 		System.out.println("[INFO]処理終了");
 		System.exit(0);
 	}
 
+	public static void dbInsert(DesignDataBooks ddb) {
+		val emf = Persistence.createEntityManagerFactory("jpaEclipseLink");
+		val em = emf.createEntityManager();
+		// ▼インサートデータ生成
+		System.out.println("インサートデータ生成開始");
+		List<ItemDesign> itemDesignList = new ArrayList<ItemDesign>();
+
+		ItemDesign itemDesign=new ItemDesign();
+		itemDesign.setItemName("testItem");
+		itemDesign.setItemId("item001");
+
+		itemDesignList.add(itemDesign);
+
+		// ▼データインサート
+		val tx=em.getTransaction();
+		try {
+			tx.begin();
+			System.out.println("トランザクション開始");
+			em.persist(itemDesign);
+			tx.commit();
+			System.out.println("トランザクションコミット");
+		} catch (Exception e) {
+			e.printStackTrace();
+			if(tx!=null && tx.isActive()){
+				tx.rollback();
+			}
+			System.out.println("トランザクションロールバック");
+		}
+		// ▲データインサート
+		em.close();
+		emf.close();
+	}
 
 	public static void designOutput(DesignDataBooks ddb){
 
