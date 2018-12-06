@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.Persistence;
@@ -119,7 +120,10 @@ public class DesignDocumentReader
 		try {
 			tx.begin();
 			System.out.println("トランザクション開始");
-			em.persist(itemDesign);
+			Iterator<ItemDesign> it = itemDesignList.iterator();
+			while(it.hasNext()) {
+				em.persist(it.next());
+			}
 			tx.commit();
 			System.out.println("トランザクションコミット");
 		} catch (Exception e) {

@@ -8,9 +8,9 @@ import javax.persistence.Version;
 import lombok.Getter;
 import lombok.Setter;
 
+@Entity
 @Setter
 @Getter
-@Entity
 public class ItemDesign {
 	@Id
 	@GeneratedValue

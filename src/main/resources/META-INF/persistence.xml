@@ -10,9 +10,7 @@
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<!-- <shared-cache-mode>NONE</shared-cache-mode> -->
 		<!-- Entityの定義 -->
-		<class>uehara.daishin.db.entity.Person</class>
-		<class>uehara.daishin.db.entity.Job</class>
-		<class>uehara.daishin.db.entity.JobHistory</class>
+		<class>uehara.daishin.sdtool.db.ItemDesign</class>
 		<properties>
 			<!-- JDBCドライバ -->
 			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
