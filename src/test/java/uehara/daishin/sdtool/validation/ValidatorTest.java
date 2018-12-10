@@ -5,10 +5,10 @@ import junit.framework.TestCase;
 public class ValidatorTest extends TestCase {
 
 	public void testValidation01_01() {
-		assertFalse(Validator.validation("1", ValidationType.DateTimeYYYYMMDDHHMM1));
+		assertFalse(Validator.validation("1", ValidationType.DateYYYYMMDD1));
 	}
 
 	public void testValidation01_02() {
-		assertTrue(Validator.validation("2018.11.02 23:59", ValidationType.DateTimeYYYYMMDDHHMM1));
+		assertTrue(Validator.validation("20181102", ValidationType.DateYYYYMMDD1));
 	}
 }
