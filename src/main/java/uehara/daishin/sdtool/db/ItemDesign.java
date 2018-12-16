@@ -1,8 +1,8 @@
 package uehara.daishin.sdtool.db;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
 import lombok.Getter;
@@ -12,25 +12,27 @@ import lombok.Setter;
 @Setter
 @Getter
 public class ItemDesign {
+//	@GeneratedValue
 	@Id
-	@GeneratedValue
-	private Integer id;
+	private String itemId; /** 項目id  */
+	private String itemName; /** 項目名  */
+	private String formId; /** 画面ID */
+	private String formName; /** 画面名 */
+	private String controlType; /** コントロール種別 */
+//	private String programId; /** プログラムID */
+//	private String programName; /** プログラム名 */
+//	private String eventUrlName;
+	private String propertyType; /** 属性 */
+	private Integer maxLength; /** 桁数 */
+	private String mappingName; /** 変数名 */
+	private Integer detailFlg; /** 明細フラグ */
 
-	private String itemId;
-	private String itemName;
-	private String programId;
-	private String programName;
-	private Integer maxLength;
-	private String displayId;
-	private String displayName;
-	private String controlId;
-	private String controlName;
-	private boolean focusoutEvent;
-	private String eventUrlName;
-	private String propertyType;
 
 	// 楽観的排他制御に用いるバージョンフィールドの指定
 	@Version
 	private Integer version;
+
+	@ManyToOne
+	FormDesign formDesign;
 
 }
