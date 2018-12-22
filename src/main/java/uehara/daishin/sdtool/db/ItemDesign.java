@@ -3,6 +3,7 @@ package uehara.daishin.sdtool.db;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
 import lombok.Getter;
@@ -25,7 +26,6 @@ public class ItemDesign {
 	private String propertyType; /** 属性 */
 	private Integer maxLength; /** 桁数 */
 	private String mappingName; /** 変数名 */
-	private Integer detailFlg; /** 明細フラグ */
 
 
 	// 楽観的排他制御に用いるバージョンフィールドの指定
@@ -34,5 +34,8 @@ public class ItemDesign {
 
 	@ManyToOne
 	FormDesign formDesign;
+
+	@OneToMany
+	DetailDesign detailDesign;
 
 }

@@ -63,6 +63,7 @@ public class ApiBookReader
 								process_type=c1.getStringCellValue();
 								switch(process_type){
 								case "画面デザイン":
+									designDataBook.getDesignDataSheetList().add(FormDesignSheetReader.readFormDesignSheet(sheet));
 									break;
 								case "IF呼出":
 									designDataBook.getDesignDataSheetList().add(InterfaceSheetReader.readInterfaceSheet(sheet));

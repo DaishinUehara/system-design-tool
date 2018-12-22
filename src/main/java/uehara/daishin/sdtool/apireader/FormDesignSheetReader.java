@@ -32,8 +32,18 @@ public class FormDesignSheetReader {
 					acell = PoiUtil.getCellString(c0);
 					// acell = c0.getStringCellValue();
 					switch(acell){
+					case "業務":
+						// 業務読み込み
+						DesignData jobDesignData=DesignReader.getDesignData("業務",++l,0,false,100);
+						DesignReader.pushHeaderKey(jobDesignData, "業務id");
+						DesignReader.pushHeaderKey(jobDesignData, "業務名");
+						DesignReader.pushHeaderKey(jobDesignData, "物理パス");
+						DesignReader.pushHeaderKey(jobDesignData, "初期画面id");
+						DesignReader.readHeader(sheet, jobDesignData);
+						designDataSheet.getDesignDataList().add(jobDesignData);
+						break;
 					case "画面":
-						// 画面ヘッダ読み込み
+						// 画面読み込み
 						DesignData displayDesignData=DesignReader.getDesignData("画面",++l,0,false,100);
 						DesignReader.pushHeaderKey(displayDesignData, "画面id");
 						DesignReader.pushHeaderKey(displayDesignData, "名前");

@@ -114,6 +114,7 @@ public class DesignDocumentReader
 		itemDesign.setItemId("item001");
 
 		itemDesignList.add(itemDesign);
+		// ▲インサートデータ生成
 
 		// ▼データインサート
 		val tx=em.getTransaction();

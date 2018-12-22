@@ -20,6 +20,7 @@ public class FormDesign {
 	@Id
 	private String formId; /** 画面ID */
 	private String formName; /** 画面名 */
+	private String fileName; /** ファイル名 */
 
 	// 楽観的排他制御に用いるバージョンフィールドの指定
 	@Version
@@ -29,6 +30,6 @@ public class FormDesign {
 	List<ItemDesign> itemDesigns;
 
 	@ManyToOne
-	ProgramDesign programDesign;
+	JobDesign jobDesign;
 
 }
