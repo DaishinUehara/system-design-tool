@@ -12,6 +12,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Persistence;
 
@@ -23,9 +24,14 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 
 import lombok.val;
 import uehara.daishin.sdtool.apireader.ApiBookReader;
+import uehara.daishin.sdtool.db.DetailDesign;
+import uehara.daishin.sdtool.db.FormDesign;
 import uehara.daishin.sdtool.db.ItemDesign;
+import uehara.daishin.sdtool.db.WorkProgramDesign;
+import uehara.daishin.sdtool.design.DesignData;
 import uehara.daishin.sdtool.design.DesignDataBook;
 import uehara.daishin.sdtool.design.DesignDataBooks;
+import uehara.daishin.sdtool.design.DesignDataSheet;
 
 
 
@@ -60,22 +66,26 @@ public class DesignDocumentReader
 			}
 		}
 
-		DesignDataBooks designDataBooks=new DesignDataBooks();
-		designDataBooks.setName("テスト設計書");
-		designDataBooks.setDesignDataBookList(new ArrayList<DesignDataBook>());
+//		DesignDataBooks designDataBooks=new DesignDataBooks();
+//		designDataBooks.setName("テスト設計書");
+//		designDataBooks.setDesignDataBookList(new ArrayList<DesignDataBook>());
 
 		try {
 			Files.walkFileTree(doc_dir, new SimpleFileVisitor<Path>() {
 				@Override
 				public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+					DesignDataBook ddb=null;
 					String excelFileName=file.toAbsolutePath().toString();
 					if (excelFileName.endsWith(".xlsx")){
 						System.out.println("[INFO]処理開始 ファイル名:\""+excelFileName+"\"");
 						File f = new File(excelFileName);
 						try{
+							ddb=ApiBookReader.ReadExcel(f,file.getFileName().toString().replaceFirst("\\.xlsx$", ""));
+							dbInsert(ddb);
+/*
 							designDataBooks.getDesignDataBookList().add(
 									ApiBookReader.ReadExcel(f,file.getFileName().toString().replaceFirst("\\.xlsx$", ""))
-									);
+									);*/
 						} catch (IOException e){
 							System.err.println("[ERROR]処理失敗 ファイル名:\""+excelFileName+"\"");
 							e.printStackTrace();
@@ -92,28 +102,151 @@ public class DesignDocumentReader
 			System.exit(1);
 		}
 
-		System.out.println(designDataBooks);
+//		System.out.println(designDataBooks);
 
-		dbInsert(designDataBooks);
+//		dbInsert(designDataBooks);
 
-		designOutput(designDataBooks);
+//		designOutput(designDataBooks);
 
 		System.out.println("[INFO]処理終了");
 		System.exit(0);
 	}
 
-	public static void dbInsert(DesignDataBooks ddb) {
+	public static void dbInsert(DesignDataBook ddb) {
 		val emf = Persistence.createEntityManagerFactory("jpaEclipseLink");
 		val em = emf.createEntityManager();
+
+		List<DesignDataSheet> ddsl=ddb.getDesignDataSheetList();
 		// ▼インサートデータ生成
-		System.out.println("インサートデータ生成開始");
+		List<WorkProgramDesign> workProgramDesignList = new ArrayList<WorkProgramDesign>();
+		List<FormDesign> formDesignList = new ArrayList<FormDesign>();
 		List<ItemDesign> itemDesignList = new ArrayList<ItemDesign>();
+		List<DetailDesign> detailDesignList = new ArrayList<DetailDesign>();
 
-		ItemDesign itemDesign=new ItemDesign();
-		itemDesign.setItemName("testItem");
-		itemDesign.setItemId("item001");
+		WorkProgramDesign wpd;
+		FormDesign formDesign;
+		ItemDesign itemDesign;
 
-		itemDesignList.add(itemDesign);
+		System.out.println("インサートデータ生成開始");
+
+		for (DesignDataSheet dds: ddsl) {
+			String sheetName=dds.getName();
+			List<DesignData> ddl;
+			ddl=dds.getDesignDataList();
+			switch(sheetName) {
+			case "画面デザイン":
+				for(DesignData dd: ddl) {
+					String designDataName=dd.getName();
+					List<Map<String,String>> designTable;
+					designTable=dd.getTable();
+					switch(designDataName) {
+					case "業務プログラム":
+						wpd = new WorkProgramDesign();
+						for (Map<String,String> dm: designTable) {
+							for (Map.Entry<String, String> keyValue: dm.entrySet()) {
+								switch (keyValue.getKey()) {
+								case "業務プログラムid":
+									wpd.setWorkProgramId(keyValue.getValue());
+									break;
+								case "業務プログラム名":
+									wpd.setWorkProgramName(keyValue.getValue());
+									break;
+								case "パス":
+									wpd.setCallPath(keyValue.getValue());
+									break;
+								case "初期表示画面id":
+									wpd.setInitFormId(keyValue.getValue());
+									break;
+								default:
+									break;
+								}
+							}
+						}
+						workProgramDesignList.add(wpd);
+						break;
+
+					case "画面":
+						formDesign = new FormDesign();
+						for (Map<String,String> dm: designTable) {
+							for (Map.Entry<String, String> keyValue: dm.entrySet()) {
+								switch (keyValue.getKey()) {
+								case "画面id":
+									formDesign.setFormId(keyValue.getValue());
+									break;
+								case "名前":
+									formDesign.setFormName(keyValue.getValue());
+									break;
+								case "物理ファイル名":
+									formDesign.setFileName(keyValue.getValue());
+									break;
+								default:
+									break;
+								}
+
+							}
+						}
+						formDesignList.add(formDesign);
+						break;
+
+					case "項目":
+						itemDesign = new ItemDesign();
+						for (Map<String,String> dm: designTable) {
+							for (Map.Entry<String, String> keyValue: dm.entrySet()) {
+								switch (keyValue.getKey()) {
+								case "画面id":
+									itemDesign.setFormId(keyValue.getValue());
+									break;
+								case "項目id":
+									itemDesign.setItemId(keyValue.getValue());
+									break;
+								case "項目名":
+									itemDesign.setItemName(keyValue.getValue());
+									break;
+								case "コントロール種別":
+									itemDesign.setControlType(keyValue.getValue());
+									break;
+								case "属性":
+									itemDesign.setPropertyType(keyValue.getValue());
+									break;
+								case "桁数":
+									// TODO itemDesign.setMaxLength(keyValue.getValue());  // 要調整
+									break;
+								case "変数名":
+									itemDesign.setMappingName(keyValue.getValue());
+									break;
+								default:
+									break;
+								}
+
+							}
+						}
+						itemDesignList.add(itemDesign);
+
+						break;
+					case "明細":
+						break;
+					default:
+						break;
+					}
+				}
+				break;
+			case "イベント":
+				ddl=dds.getDesignDataList();
+				break;
+			case "IF呼出":
+				ddl=dds.getDesignDataList();
+				break;
+			case "DB対応表":
+				ddl=dds.getDesignDataList();
+				break;
+			default:
+				break;
+			}
+		}
+
+
+
+		System.out.println("インサートデータ生成完了");
 		// ▲インサートデータ生成
 
 		// ▼データインサート

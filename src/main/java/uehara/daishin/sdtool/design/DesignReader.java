@@ -61,7 +61,7 @@ public class DesignReader {
 	 *
 	 * pushHeaderKeyで追加したヘッダ情報でサーチし設計データにExcelから設計情報を読み取る。
 	 */
-	public static void readHeader(Sheet sheet, DesignData td){
+	public static void readDesignData(Sheet sheet, DesignData td){
 		if ( td.isHeaderVirtical() ){
 			System.out.println("[INFO][開始]設計情報読込:"+td.getName());
 			// 通常とは異なり列をヘッダとして読む場合

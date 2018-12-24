@@ -32,15 +32,15 @@ public class FormDesignSheetReader {
 					acell = PoiUtil.getCellString(c0);
 					// acell = c0.getStringCellValue();
 					switch(acell){
-					case "業務":
+					case "業務プログラム":
 						// 業務読み込み
-						DesignData jobDesignData=DesignReader.getDesignData("業務",++l,0,false,100);
-						DesignReader.pushHeaderKey(jobDesignData, "業務id");
-						DesignReader.pushHeaderKey(jobDesignData, "業務名");
-						DesignReader.pushHeaderKey(jobDesignData, "物理パス");
-						DesignReader.pushHeaderKey(jobDesignData, "初期画面id");
-						DesignReader.readHeader(sheet, jobDesignData);
-						designDataSheet.getDesignDataList().add(jobDesignData);
+						DesignData programDesignData=DesignReader.getDesignData("業務プログラム",++l,0,false,100);
+						DesignReader.pushHeaderKey(programDesignData, "業務プログラムid");
+						DesignReader.pushHeaderKey(programDesignData, "業務プログラム名");
+						DesignReader.pushHeaderKey(programDesignData, "パス");
+						DesignReader.pushHeaderKey(programDesignData, "初期表示画面id");
+						DesignReader.readDesignData(sheet, programDesignData);
+						designDataSheet.getDesignDataList().add(programDesignData);
 						break;
 					case "画面":
 						// 画面読み込み
@@ -48,7 +48,7 @@ public class FormDesignSheetReader {
 						DesignReader.pushHeaderKey(displayDesignData, "画面id");
 						DesignReader.pushHeaderKey(displayDesignData, "名前");
 						DesignReader.pushHeaderKey(displayDesignData, "物理ファイル名");
-						DesignReader.readHeader(sheet, displayDesignData);
+						DesignReader.readDesignData(sheet, displayDesignData);
 						designDataSheet.getDesignDataList().add(displayDesignData);
 						break;
 					case "項目":
@@ -61,7 +61,7 @@ public class FormDesignSheetReader {
 						DesignReader.pushHeaderKey(itemDesignData, "桁数");
 						DesignReader.pushHeaderKey(itemDesignData, "変数名");
 						DesignReader.pushHeaderKey(itemDesignData, "明細");
-						DesignReader.readHeader(sheet, itemDesignData);
+						DesignReader.readDesignData(sheet, itemDesignData);
 						designDataSheet.getDesignDataList().add(itemDesignData);
 						break;
 					case "明細":
@@ -74,7 +74,7 @@ public class FormDesignSheetReader {
 						DesignReader.pushHeaderKey(detailDesignData, "明細項目属性");
 						DesignReader.pushHeaderKey(detailDesignData, "明細項目桁数");
 						DesignReader.pushHeaderKey(detailDesignData, "明細項目変数名");
-						DesignReader.readHeader(sheet, detailDesignData);
+						DesignReader.readDesignData(sheet, detailDesignData);
 						designDataSheet.getDesignDataList().add(detailDesignData);
 						break;
 					default:

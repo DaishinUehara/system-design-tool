@@ -40,7 +40,7 @@ public class InterfaceSheetReader {
 						DesignReader.pushHeaderKey(ifDesignData, "リクエスト種別");
 						DesignReader.pushHeaderKey(ifDesignData, "操作種別");
 						DesignReader.pushHeaderKey(ifDesignData, "URI");
-						DesignReader.readHeader(sheet, ifDesignData);
+						DesignReader.readDesignData(sheet, ifDesignData);
 						designDataSheet.getDesignDataList().add(ifDesignData);
 						break;
 					case "呼出パラメータ":
@@ -51,7 +51,7 @@ public class InterfaceSheetReader {
 						DesignReader.pushHeaderKey(callParamDesignData, "型");
 						DesignReader.pushHeaderKey(callParamDesignData, "桁");
 						DesignReader.pushHeaderKey(callParamDesignData, "配列");
-						DesignReader.readHeader(sheet, callParamDesignData);
+						DesignReader.readDesignData(sheet, callParamDesignData);
 						designDataSheet.getDesignDataList().add(callParamDesignData);
 						break;
 					case "戻値パラメータ":
@@ -62,7 +62,7 @@ public class InterfaceSheetReader {
 						DesignReader.pushHeaderKey(returnParamDesignData, "型");
 						DesignReader.pushHeaderKey(returnParamDesignData, "桁");
 						DesignReader.pushHeaderKey(returnParamDesignData, "配列");
-						DesignReader.readHeader(sheet, returnParamDesignData);
+						DesignReader.readDesignData(sheet, returnParamDesignData);
 						designDataSheet.getDesignDataList().add(returnParamDesignData);
 						break;
 					default:
