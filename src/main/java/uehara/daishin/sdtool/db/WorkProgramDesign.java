@@ -13,19 +13,20 @@ import lombok.Setter;
 @Entity
 @Setter
 @Getter
-public class JobDesign {
+public class WorkProgramDesign {
 //	@GeneratedValue
 	@Id
-	private String jobId; /** 業務id */
-	private String jobName; /** プログラム名 */
+	private String workProgramId; /** 業務プログラムid */
+
+	private String workProgramName; /** 業務プログラム名 */
 	private String callPath; /** パス */
-	private String initGamenId; /** 初期表示画面id */
+	private String initFormId; /** 初期表示画面id */
 
 	// 楽観的排他制御に用いるバージョンフィールドの指定
 	@Version
 	private Integer version;
 
-	@OneToMany(mappedBy="jobDesign")
+	@OneToMany(mappedBy="workProgramDesign")
 	List<FormDesign> formDesigns;
 
 }

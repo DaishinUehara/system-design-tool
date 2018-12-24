@@ -30,6 +30,6 @@ public class FormDesign {
 	List<ItemDesign> itemDesigns;
 
 	@ManyToOne
-	JobDesign jobDesign;
+	WorkProgramDesign workProgramDesign;
 
 }

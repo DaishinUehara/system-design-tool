@@ -21,13 +21,13 @@ public class DetailDesign {
 	public class JobDesign {
 //		@GeneratedValue
 		@Id
-		private String detailId; /** 業務id */
+		private String detailId; /** 明細id */
 		private String detailItemId; /** 明細項目id */
 		private String detailItemName; /** 明細項目名 */
-		private String detailControlType; /** 明細項目コントロール名名 */
-		private String detailPropertyType; /** 明細項目名 */
-		private String detailMaxLength; /**  */
-		private String detailMappingName; /**  */
+		private String detailControlType; /** 明細項目コントロール種別 */
+		private String detailPropertyType; /** 明細項目属性 */
+		private String detailMaxLength; /** 明細項目桁数 */
+		private String detailMappingName; /** 明細項目変数名 */
 
 		// 楽観的排他制御に用いるバージョンフィールドの指定
 		@Version
